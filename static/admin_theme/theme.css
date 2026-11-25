@@ -1,0 +1,295 @@
+/* ============================================================
+   接案管理後台：自訂主題（覆寫 Django Admin 預設樣式）
+   固定使用淺色主題，隱藏內建的深色模式切換。
+   ============================================================ */
+
+:root,
+html[data-theme="light"],
+html[data-theme="dark"],
+html[data-theme="auto"] {
+  color-scheme: light;
+
+  --primary: #4f46e5;
+  --secondary: #4338ca;
+  --accent: #a5b4fc;
+  --primary-fg: #ffffff;
+
+  --body-fg: #1e293b;
+  --body-bg: #f4f6fb;
+  --body-quiet-color: #64748b;
+  --body-medium-color: #475569;
+  --body-loud-color: #0f172a;
+
+  --header-color: #c7d2fe;
+  --header-branding-color: #ffffff;
+  --header-bg: #1e1b4b;
+  --header-link-color: #e0e7ff;
+
+  --breadcrumbs-fg: #64748b;
+  --breadcrumbs-link-fg: #4f46e5;
+  --breadcrumbs-bg: transparent;
+
+  --link-fg: #4f46e5;
+  --link-hover-color: #3730a3;
+  --link-selected-fg: #3730a3;
+
+  --hairline-color: #e2e8f0;
+  --border-color: #e2e8f0;
+
+  --error-fg: #dc2626;
+  --message-success-bg: #dcfce7;
+  --message-warning-bg: #fef3c7;
+  --message-error-bg: #fee2e2;
+
+  --darkened-bg: #f8fafc;
+  --selected-bg: #eef2ff;
+  --selected-row: #eef2ff;
+
+  --button-fg: #ffffff;
+  --button-bg: #4f46e5;
+  --button-hover-bg: #4338ca;
+  --default-button-bg: #4f46e5;
+  --default-button-hover-bg: #3730a3;
+  --close-button-bg: #94a3b8;
+  --close-button-hover-bg: #64748b;
+  --delete-button-bg: #dc2626;
+  --delete-button-hover-bg: #b91c1c;
+
+  --object-tools-fg: #ffffff;
+  --object-tools-bg: #4f46e5;
+  --object-tools-hover-bg: #4338ca;
+
+  --font-family-primary: "Noto Sans TC", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.theme-toggle { display: none !important; }
+
+body { font-size: 14px; }
+
+/* ---------- 頂部列 ---------- */
+#header {
+  background: linear-gradient(90deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+  padding: 14px 32px;
+  box-shadow: 0 2px 12px rgba(30, 27, 75, .25);
+}
+#site-name, #site-name a { font-weight: 700; font-size: 18px; letter-spacing: .5px; }
+.brand-mark { color: #a5b4fc; margin-right: 8px; }
+#user-tools { font-size: 13px; letter-spacing: 0; text-transform: none; }
+#user-tools a, #logout-form button { border-bottom: none; }
+#user-tools a:hover, #logout-form button:hover { color: #fff; text-decoration: underline; }
+
+/* ---------- 麵包屑 ---------- */
+div.breadcrumbs {
+  padding: 14px 32px 0;
+  font-size: 13px;
+  border: none;
+}
+div.breadcrumbs a { font-weight: 500; }
+
+/* ---------- 主要內容 ---------- */
+#content { padding: 20px 32px 40px; }
+#content h1 { font-size: 22px; font-weight: 700; color: var(--body-loud-color); margin-bottom: 18px; }
+#content h2 { font-weight: 700; }
+
+/* 卡片化的區塊 */
+.module, #changelist .changelist-form-container, #changelist-filter,
+.inline-group, fieldset.module {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--hairline-color);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, .06), 0 4px 16px rgba(15, 23, 42, .04);
+  overflow: hidden;
+}
+.module h2, .module caption, .inline-group h2 {
+  background: #fff;
+  color: var(--body-loud-color);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hairline-color);
+}
+.module caption a.section { color: var(--body-loud-color); }
+fieldset.module { margin-bottom: 20px; }
+
+/* ---------- 左側選單 ---------- */
+#nav-sidebar {
+  background: #fff;
+  border-right: 1px solid var(--hairline-color);
+}
+#nav-sidebar .module { box-shadow: none; border: none; border-radius: 0; }
+#nav-sidebar .current-app .section:link,
+#nav-sidebar .current-app .section:visited { color: var(--primary); }
+#nav-sidebar .current-model { background: var(--selected-bg); }
+#nav-sidebar .current-model a { color: var(--primary); font-weight: 700; }
+#toggle-nav-sidebar { background: #fff; border-color: var(--hairline-color); color: var(--primary); }
+
+/* ---------- 表格 ---------- */
+table { border-collapse: separate; border-spacing: 0; }
+thead th, tfoot td {
+  background: var(--darkened-bg);
+  color: var(--body-medium-color);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: .3px;
+  border-bottom: 1px solid var(--hairline-color);
+  padding: 12px 10px;
+}
+thead th a:link, thead th a:visited { color: var(--body-medium-color); }
+td, th { border-bottom: 1px solid #f1f5f9; padding: 12px 10px; vertical-align: middle; }
+#result_list tbody tr:hover { background: #f8faff; }
+#result_list tbody tr.selected { background: var(--selected-row); }
+
+/* ---------- 按鈕 ---------- */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 500;
+  transition: background .15s, transform .05s;
+}
+.button:active, input[type=submit]:active { transform: translateY(1px); }
+.object-tools a:link, .object-tools a:visited {
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.submit-row {
+  background: #fff;
+  border: 1px solid var(--hairline-color);
+  border-radius: 14px;
+  padding: 14px 18px;
+}
+.submit-row a.deletelink { border-radius: 10px; }
+
+/* ---------- 表單 ---------- */
+input[type=text], input[type=password], input[type=email], input[type=url],
+input[type=number], input[type=search], input[type=date], textarea, select, .vTextField {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 10px;
+  transition: border-color .15s, box-shadow .15s;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, .15);
+}
+.form-row { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; }
+.aligned label { color: var(--body-medium-color); font-weight: 500; }
+
+/* ---------- 列表頁：搜尋、篩選、批次動作 ---------- */
+#changelist #toolbar {
+  background: transparent;
+  border: none;
+  padding: 0 0 14px;
+  margin-bottom: 0;
+}
+#changelist #toolbar form input[type=text] { width: 280px; }
+#changelist-filter h2 { border-radius: 0; }
+#changelist-filter h3 { color: var(--body-loud-color); font-weight: 700; }
+#changelist-filter li.selected a { color: var(--primary) !important; font-weight: 700; }
+#changelist .actions {
+  background: var(--darkened-bg);
+  border-bottom: 1px solid var(--hairline-color);
+  padding: 12px 14px;
+}
+.paginator { border-top: 1px solid var(--hairline-color); padding: 12px 14px; background: #fff; }
+
+/* ---------- 訊息 ---------- */
+ul.messagelist li {
+  border-radius: 10px;
+  margin: 0 0 10px;
+  padding: 12px 16px 12px 44px;
+  font-size: 14px;
+}
+
+/* ---------- 狀態標籤 ---------- */
+.status-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.status-negotiating { color: #64748b; background: #f1f5f9; }
+.status-in_progress { color: #2563eb; background: #dbeafe; }
+.status-done { color: #059669; background: #d1fae5; }
+
+/* ---------- 後台首頁：統計卡片 ---------- */
+.dash { margin-bottom: 28px; }
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.dash-card {
+  background: #fff;
+  border: 1px solid var(--hairline-color);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, .06);
+  border-top: 4px solid #6366f1;
+}
+.dash-card.accent-blue { border-top-color: #2563eb; }
+.dash-card.accent-green { border-top-color: #059669; }
+.dash-card.accent-amber { border-top-color: #d97706; }
+.dash-label { color: var(--body-quiet-color); font-size: 13px; font-weight: 500; }
+.dash-value { font-size: 28px; font-weight: 700; color: var(--body-loud-color); margin: 6px 0 4px; }
+.dash-sub { color: var(--body-quiet-color); font-size: 12px; }
+
+.dash-panel {
+  background: #fff;
+  border: 1px solid var(--hairline-color);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, .06);
+  overflow: hidden;
+}
+.dash-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hairline-color);
+}
+.dash-panel-head h2 { margin: 0; font-size: 15px; color: var(--body-loud-color); }
+.dash-panel-head a { font-size: 13px; font-weight: 500; }
+.dash-panel table { width: 100%; }
+.dash-empty { text-align: center; color: var(--body-quiet-color); padding: 28px; }
+
+/* 首頁的 App 列表也改成全寬 */
+.dashboard #content { width: auto; max-width: 1100px; }
+.dashboard #content-main { float: none; width: 100%; }
+.dashboard .module table { width: 100%; }
+
+/* ---------- 登入頁 ---------- */
+body.login {
+  background: radial-gradient(circle at 20% 20%, #312e81 0%, #1e1b4b 45%, #0f0d2e 100%);
+  min-height: 100vh;
+}
+.login #container {
+  border-radius: 18px;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+  margin-top: 12vh;
+}
+.login #header { padding: 22px 28px; justify-content: center; }
+.login #content { padding: 24px 28px 28px; }
+.login .form-row { padding: 6px 0; border: none; }
+.login .form-row label { display: block; margin-bottom: 6px; }
+.login .form-row #id_username, .login .form-row #id_password { width: 100%; box-sizing: border-box; }
+.login .submit-row { border: none; padding: 12px 0 0; background: transparent; }
+.login .submit-row input { width: 100%; }
+
+/* ---------- 手機 ---------- */
+@media (max-width: 767px) {
+  #header, div.breadcrumbs, #content { padding-left: 16px; padding-right: 16px; }
+  #changelist #toolbar form input[type=text] { width: 100%; }
+}

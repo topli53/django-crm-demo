@@ -1,0 +1,56 @@
+{% extends "admin/index.html" %}
+{% load admin_stats humanize %}
+
+{% block content %}
+{% project_stats as s %}
+<div class="dash">
+  <div class="dash-cards">
+    <div class="dash-card">
+      <div class="dash-label">案件總數</div>
+      <div class="dash-value">{{ s.total }}</div>
+      <div class="dash-sub">洽談中 {{ s.negotiating }} · 進行中 {{ s.in_progress }} · 已完成 {{ s.done }}</div>
+    </div>
+    <div class="dash-card accent-blue">
+      <div class="dash-label">進行中</div>
+      <div class="dash-value">{{ s.in_progress }}</div>
+      <div class="dash-sub">需要追蹤進度的案件</div>
+    </div>
+    <div class="dash-card accent-green">
+      <div class="dash-label">已完成收入</div>
+      <div class="dash-value">${{ s.done_budget|intcomma }}</div>
+      <div class="dash-sub">狀態為已完成的預算合計</div>
+    </div>
+    <div class="dash-card accent-amber">
+      <div class="dash-label">潛在收入</div>
+      <div class="dash-value">${{ s.pipeline_budget|intcomma }}</div>
+      <div class="dash-sub">洽談中＋進行中</div>
+    </div>
+  </div>
+
+  <div class="dash-panel">
+    <div class="dash-panel-head">
+      <h2>最近更新的案件</h2>
+      <a href="{% url 'admin:projects_project_changelist' %}">查看全部 →</a>
+    </div>
+    <table>
+      <thead><tr><th>案件</th><th>客戶</th><th>預算</th><th>狀態</th><th>更新時間</th></tr></thead>
+      <tbody>
+      {% for p in s.recent %}
+        <tr>
+          <td><a href="{% url 'admin:projects_project_change' p.pk %}">{{ p.title }}</a></td>
+          <td>{{ p.client_name }}</td>
+          <td>${{ p.budget|intcomma }}</td>
+          <td><span class="status-pill status-{{ p.status }}">{{ p.get_status_display }}</span></td>
+          <td>{{ p.updated_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="dash-empty">還沒有案件</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{ block.super }}
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

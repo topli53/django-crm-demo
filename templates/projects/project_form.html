@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}編輯案件{% else %}新增案件{% endif %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-4">{% if object %}編輯案件{% else %}新增案件{% endif %}</h1>
+        <form method="post">
+          {% csrf_token %}
+          {% include "form_fields.html" %}
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary">儲存</button>
+            <a class="btn btn-outline-secondary" href="{% url 'project_list' %}">取消</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

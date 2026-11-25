@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}登入{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-4">登入</h1>
+        <form method="post">
+          {% csrf_token %}
+          {% if form.errors %}<div class="alert alert-danger">帳號或密碼錯誤。</div>{% endif %}
+          <div class="mb-3">
+            <label class="form-label" for="id_username">帳號</label>
+            <input class="form-control" type="text" name="username" id="id_username" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="id_password">密碼</label>
+            <input class="form-control" type="password" name="password" id="id_password" required>
+          </div>
+          <input type="hidden" name="next" value="{{ next }}">
+          <button class="btn btn-primary w-100">登入</button>
+        </form>
+        <p class="mt-3 mb-0 text-center small">還沒有帳號？<a href="{% url 'signup' %}">註冊</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
