@@ -22,6 +22,7 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser  # 建立後台帳號
+python manage.py seed_demo 你的帳號   # 建立 8 筆範例資料
 python manage.py runserver
 ```
 
