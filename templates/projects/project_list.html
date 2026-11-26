@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load humanize %}
+{% load admin_stats %}
 {% block title %}我的案件{% endblock %}
 {% block content %}
 <div class="row g-3 mb-4">
@@ -10,10 +10,10 @@
     <div class="text-muted small">進行中</div><div class="fs-4 fw-bold">{{ stats.in_progress }}</div>
   </div></div></div>
   <div class="col-6 col-md-3"><div class="card shadow-sm"><div class="card-body">
-    <div class="text-muted small">已完成收入</div><div class="fs-4 fw-bold">${{ stats.done_budget|default:0|intcomma }}</div>
+    <div class="text-muted small">已完成收入</div><div class="fs-4 fw-bold">${{ stats.done_budget|twd }}</div>
   </div></div></div>
   <div class="col-6 col-md-3"><div class="card shadow-sm"><div class="card-body">
-    <div class="text-muted small">洽談＋進行中金額</div><div class="fs-4 fw-bold">${{ stats.pipeline_budget|default:0|intcomma }}</div>
+    <div class="text-muted small">洽談＋進行中金額</div><div class="fs-4 fw-bold">${{ stats.pipeline_budget|twd }}</div>
   </div></div></div>
 </div>
 
@@ -42,7 +42,7 @@
           <tr>
             <td>{{ p.title }}</td>
             <td>{{ p.client_name }}</td>
-            <td class="text-end">${{ p.budget|intcomma }}</td>
+            <td class="text-end">${{ p.budget|twd }}</td>
             <td>
               <span class="badge {% if p.status == 'done' %}bg-success{% elif p.status == 'in_progress' %}bg-primary{% else %}bg-secondary{% endif %}">
                 {{ p.get_status_display }}

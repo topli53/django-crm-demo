@@ -1,5 +1,5 @@
 {% extends "admin/index.html" %}
-{% load admin_stats humanize %}
+{% load admin_stats %}
 
 {% block content %}
 {% project_stats as s %}
@@ -17,12 +17,12 @@
     </div>
     <div class="dash-card accent-green">
       <div class="dash-label">已完成收入</div>
-      <div class="dash-value">${{ s.done_budget|intcomma }}</div>
+      <div class="dash-value">${{ s.done_budget|twd }}</div>
       <div class="dash-sub">狀態為已完成的預算合計</div>
     </div>
     <div class="dash-card accent-amber">
       <div class="dash-label">潛在收入</div>
-      <div class="dash-value">${{ s.pipeline_budget|intcomma }}</div>
+      <div class="dash-value">${{ s.pipeline_budget|twd }}</div>
       <div class="dash-sub">洽談中＋進行中</div>
     </div>
   </div>
@@ -39,7 +39,7 @@
         <tr>
           <td><a href="{% url 'admin:projects_project_change' p.pk %}">{{ p.title }}</a></td>
           <td>{{ p.client_name }}</td>
-          <td>${{ p.budget|intcomma }}</td>
+          <td>${{ p.budget|twd }}</td>
           <td><span class="status-pill status-{{ p.status }}">{{ p.get_status_display }}</span></td>
           <td>{{ p.updated_at|date:"Y-m-d H:i" }}</td>
         </tr>
