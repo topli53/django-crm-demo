@@ -21,3 +21,12 @@ def project_stats():
     s["pipeline_budget"] = s["pipeline_budget"] or 0
     s["recent"] = Project.objects.select_related("owner")[:5]
     return s
+
+
+@register.filter
+def twd(value):
+    """金額加上千分位：75000 → 75,000（不受語系設定影響）。"""
+    try:
+        return f"{int(value or 0):,}"
+    except (TypeError, ValueError):
+        return value
